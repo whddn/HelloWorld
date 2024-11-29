@@ -16,7 +16,7 @@ public class TodoExe5 {
 		//   ***
 		//  ****
 		// *****
-		
+		  
 		
 
 		for (int i = 5; i >= 1; i--) {
