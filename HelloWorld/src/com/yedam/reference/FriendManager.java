@@ -54,26 +54,55 @@ public class FriendManager {
 			case 3: // 조회
 				boolean isExists = false;
 				int idx = -1;
-				System.out.print("이름을 입력하세요:");
+				System.out.print("조회할 이름을 입력하세요:");
 				name = scn.nextLine();
 				for (int i = 0; i < storage.length; i++) {
-					isExists = name.equals(storage[i].friendName);
-					if (isExists) {
-						idx = i;
-						break;
+					if (storage[i] != null) {
+						isExists = name.equals(storage[i].friendName);
+						if (isExists) {
+							idx = i;
+							break;
+						}
 					}
 				}
-				if(isExists) {
+				if (isExists) {
 					System.out.printf("%4s %14s %14s \n", storage[idx].friendName, storage[idx].friendPhone,
 							storage[idx].friendBirth);
-				}else {
+				} else {
 					System.out.println("찾는 이름 없음");
 				}
 				break;
-			case 4: //수정(연락처)
+			case 4: // 수정(연락처) 이름, 연락처 입력
+				System.out.println("수정할 친구 이름 입력>> ");
+				name = scn.nextLine();
+				System.out.print("친구 연락처 입력>> ");
+				phone = scn.nextLine();
+				// 10개 중에서 6개 저장, 4개 null
+				for (int i = 0; i < storage.length; i++) {
+					if (storage[i] != null) {
+						if (storage[i].friendName.equals(name)) {
+							storage[i].friendPhone = phone;
+							break;
+						} 
+					}else if(storage[i] == null) {
+						System.out.println("찾는 이름 따윈 없습니다");
+						break;
+					}
+				}
+				break;
+			case 5: // 삭제. 배열의 위치에 null값을 대입함
+				System.out.println("삭제할 친구 이름 입력>> ");
+				name = scn.nextLine();
 				
-			case 5: //삭제
-				
+				for(int i = 0; i<storage.length; i++) {
+					if (storage[i] != null) {
+						if(storage[i].friendName.equals(name)) {
+							storage[i] = null;
+							break;
+						}
+					}
+				}
+				break;
 			case 9: // 종료
 				run = false;
 				break; // switch 종료.
@@ -84,4 +113,5 @@ public class FriendManager {
 		} // end of while
 		System.out.println("프로그램 ㄲㅡㅌ");
 	} // end of main()
-} // end of class
+}
+// end of class
