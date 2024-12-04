@@ -4,7 +4,9 @@ package com.yedam.board;
  */
 
 public class MemberExe {
-	private Member[] storage; // 필드
+	// 인스턴스 vs 정적필드(static), 정적메소드 선언
+	
+	private static Member[] storage; // 필드
 
 	// 생성자
 	public MemberExe() {
@@ -16,7 +18,7 @@ public class MemberExe {
 
 	// 메소드
 	// 1.등록
-	public boolean addMember(Member member) {
+	public static boolean addMember(Member member) {
 		for (int i = 0; i < storage.length; i++) {
 			if (storage[i] == null) {
 				storage[i] = member;
@@ -27,12 +29,12 @@ public class MemberExe {
 	}
 
 	// 2.목록
-	public Member[] memberList() {
+	public static Member[] memberList() {
 		return storage;
 	}
 
 	// 3. 아이디 & 비밀번호 => 존재여부 반환
-	public boolean login(String id, String pw) {
+	public static boolean login(String id, String pw) {
 		for (int i = 0; i < storage.length; i++) {
 			if (storage[i] != null) {
 				if (storage[i].getMemberId().equals(id) && storage[i].getPassword().equals(pw)) {

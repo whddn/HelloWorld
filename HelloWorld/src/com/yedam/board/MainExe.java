@@ -29,7 +29,7 @@ public class MainExe {
 				System.out.print("회원연락처>> ");
 				String phone = scn.nextLine();
 
-				boolean result = mexe.addMember(new Member(id, pw, name, phone));
+				boolean result = MemberExe.addMember(new Member(id, pw, name, phone));
 				if (result) {
 					System.out.println("정상 등록되었습니다.");
 				} else {
@@ -37,7 +37,7 @@ public class MainExe {
 				}
 				break;
 			case 2:
-				Member[] list = mexe.memberList();
+				Member[] list = MemberExe.memberList();
 				for (Member member : list) {
 					if (member != null) {
 						System.out.println(member.showInfo());
@@ -51,7 +51,7 @@ public class MainExe {
 				System.out.print("회원비밀번호>> ");
 				pw = scn.nextLine();
 
-				if (mexe.login(id, pw)) {
+				if (MemberExe.login(id, pw)) {
 					boardMethod(id); // 로그인한 사용자 아이디를 활용
 				} else {
 					System.out.println("id와 pw를 확인하시라우!");
