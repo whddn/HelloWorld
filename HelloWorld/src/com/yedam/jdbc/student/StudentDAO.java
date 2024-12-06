@@ -1,7 +1,5 @@
 package com.yedam.jdbc.student;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -11,6 +9,28 @@ import java.util.ArrayList;
  */
 
 public class StudentDAO extends DAO {
+	
+	// method: login() => 반환:boolean, 매개값: id, password
+	public String login(String id, String password) {
+		getConn();
+		String sql = "select * from tbl_member"
+				+ "   where member_id = ? "
+				+ "   and   password = ? ";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, id);
+			psmt.setString(2, password);
+			rs = psmt.executeQuery();
+			while (rs.next()) {
+				return rs.getString("member_name"); // 정상 등록
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+		return null;
+	}
 
 	// 상세조회
 	// 반환: Student클래스, 매개:학생번호, 메소드: selectStudent
@@ -92,16 +112,37 @@ public class StudentDAO extends DAO {
 	}
 
 	// 학생목록
-	public ArrayList<Student> studentList() {
+	// 검색조건(학생이름, 연락처, 영어, 수학 검색조건 + 정렬 조건)
+	public ArrayList<Student> studentList(Search search) {
 		getConn();
 		// 조회결과를 반환
 		ArrayList<Student> studList = new ArrayList<Student>();
 
-		String sql = "select * from tbl_student";
+		String sql = "select std_no"
+				+ "			,std_name"
+				+ "			,std_phone"
+				+ "			,eng_score"
+				+ "			,math_score"
+//				+ "			,to_char(creation_date, 'yyyy-mm-dd hh24:mi:ss') cdate "
+				+ "         ,creation_date "
+				+ "   from tbl_student"
+				+ "   where std_name like '%'||?||'%' "
+				+ "   and eng_score >= ? ";
+		
+		if(search.getOrderBy().equals("std_no")) {
+			sql += " order by std_no";
+		} else if(search.getOrderBy().equals("std_name")) {
+			sql += " order by std_name";
+		}
+		
 		try {
-			PreparedStatement psmt = conn.prepareStatement(sql); // 실행, 결과 반환
-			ResultSet rs = psmt.executeQuery();
-
+			 psmt = conn.prepareStatement(sql); // 쿼리 실행, 결과 반환
+			 psmt.setString(1, search.getName());
+			 psmt.setInt(2, search.getEngScore());
+			 
+//			 psmt.setString(2, "'std_name'");
+			 rs = psmt.executeQuery();
+			 // 반복 ArrayList에 담는 작업
 			while (rs.next()) {
 				Student stud = new Student();
 				stud.setStdNo(rs.getString("std_no"));
@@ -109,6 +150,7 @@ public class StudentDAO extends DAO {
 				stud.setStdPhone(rs.getString("std_phone"));
 				stud.setEngScore(rs.getInt("eng_score"));
 				stud.setMathScore(rs.getInt("math_score"));
+				stud.setCreationDate(rs.getDate("creation_date"));
 
 				studList.add(stud); // ArrayList에 추가
 			}
