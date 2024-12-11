@@ -30,6 +30,7 @@ public class BoardListControl implements Control {
 		List<BoardVO> list = bdao.boardList(search);
 		
 		int totalCnt = bdao.selectCount();
+		
 		PageDTO pageDto = new PageDTO(Integer.parseInt(page), totalCnt);
 		
 		req.setAttribute("list", list);
