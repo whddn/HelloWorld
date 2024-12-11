@@ -39,7 +39,7 @@ public class BoardControl implements Control {
 			
 			if(bdao.insertBoard(board)) {
 				// 목록이동.
-				resp.sendRedirect("boardList.do");
+				resp.sendRedirect("boardList.do"); //페이지재지정
 			} else {
 				// 등록화면으로 이동.
 				req.getRequestDispatcher("html/boardForm.jsp").forward(req, resp);

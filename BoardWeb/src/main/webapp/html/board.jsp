@@ -10,6 +10,8 @@
 BoardVO bvo = (BoardVO) request.getAttribute("board");
 %>
 <form action="modifyForm.do">
+
+	<input type="hidden" name="board_no" value="<%=bvo.getBoardNo()%>">
 	<table class="table">
 		<tr>
 			<th>글번호</th>
@@ -19,7 +21,7 @@ BoardVO bvo = (BoardVO) request.getAttribute("board");
 		</tr>
 		<tr>
 			<th>제목</th>
-			<td colspan="3"><%=bvo.getTitle() %></td>
+			<td colspan="3"><%=bvo.getTitle()%></td>
 		</tr>
 		<tr>
 			<th>내용</th>
@@ -33,7 +35,20 @@ BoardVO bvo = (BoardVO) request.getAttribute("board");
 			<td><%=bvo.getViewCnt()%></td>
 		</tr>
 		<tr>
-			<td colspan="4" align="center"><input type="submit" class="btn btn-danger" value="수정화면"></td>
+			<%
+			String logId = (String) session.getAttribute("logId");
+			if (bvo.getWriter().equals(logId)) {
+			%>
+			<td colspan="4" align="center">
+				<input type="submit" class="btn btn-danger" value="수정화면">
+			</td>
+			<%}else {%>
+			<td colspan="4" align="center">
+				<input type="submit" disabled class="btn btn-danger" value="수정화면">
+			</td>
+			<%
+			}
+			%>
 		</tr>
 	</table>
 </form>
