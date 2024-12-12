@@ -8,9 +8,15 @@
 <h3>글수정화면(modifyForm.jsp)</h3>
 <%
 BoardVO bvo = (BoardVO) request.getAttribute("board");
+String sc = (String) request.getAttribute("searchCondition");
+String kw = (String) request.getAttribute("keyword");
+String pg = (String) request.getAttribute("page");
 %>
 <form action="modifyBoard.do">
 	<input type="hidden" name="board_no" value="<%=bvo.getBoardNo()%>">
+	<input type="hidden" name="searchCodition" value="<%=sc %>">
+	<input type="hidden" name="keyword" value="<%=kw %>">
+	<input type="hidden" name="page" value="<%=pg %>">
 	<table class="table">
 		<tr>
 			<th>글번호</th>
