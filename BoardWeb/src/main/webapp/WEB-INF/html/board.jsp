@@ -10,8 +10,8 @@
 <form action="modifyForm.do">
 	<input type="hidden" name="board_no" value="${board.boardNo }">
 	<input type="hidden" name="searchCondition" value="${searchCondition }">
-	<input type="hidden" name="keyword" value="${keyword }"> 
-	<input type="hidden" name="page" value="${page }">
+	<input type="hidden" name="keyword" value="${keyword }"> <input
+		type="hidden" name="page" value="${page }">
 	<table class="table">
 		<tr>
 			<th>글번호</th>
@@ -21,11 +21,13 @@
 		</tr>
 		<tr>
 			<th>제목</th>
-			<td colspan="3"><c:out value="${board.title }" /></td>
+			<td><c:out value="${board.title }" /></td>
+			<th>이미지</th>
+			<td><img src="images/${board.img }" width="100px"></td>
 		</tr>
 		<tr>
 			<th>내용</th>
-			<td colspan="3"><textarea row="5" readonly class="form-control">
+			<td colspan="3"><textarea row="3" readonly class="form-control">
 				<c:out value="${board.content }" /></textarea></td>
 		</tr>
 		<tr>
@@ -39,10 +41,10 @@
 				<!--  로그인상태 => 권한에 따라 활성화/비활성화 
 			로그인상태 아니면 => 권한없음 --> <c:choose>
 					<c:when test="${logId ne null and board.writer == logId }">
-						<input type="submit" class="btn btn-danger" value="수정">
+						<input type="submit" class="btn btn-warning" value="수정화면">
 					</c:when>
 					<c:otherwise>
-						<input type="submit" class="btn btn-danger" value="수정" disabled>
+						<input type="submit" class="btn btn-warning" value="수정화면" disabled>
 					</c:otherwise>
 				</c:choose>
 			</td>
@@ -50,5 +52,42 @@
 	</table>
 </form>
 <!-- board.jsp원래 있던 부분 -->
+
+<!-- 댓글 시작 -->
+<style>
+div.reply .content ul {
+	list-style-type: none;
+}
+
+div.reply .content span {
+	display: inline-block;
+}
+</style>
+<div class="reply">
+	<div class="header">
+		댓글내용: <input type="text" id="reply" class="col-sm-8">
+		<button id="addBtn" class="col-sm-2 btn btn-primary">댓글등록</button>
+	</div>
+	<!-- 댓글등록 -->
+	<div class="content">
+		<ul>
+			<li><span class="col-sm-2">글번호</span> <span class="col-sm-5">내용</span>
+				<span class="col-sm-2">작성자</span> <span class="col-sm-2">삭제</span>
+			</li>
+		</ul>
+		<ul class="list">
+		
+		</ul>
+	</div>
+	<!-- 댓글목록 -->
+	<div class="footer"></div>
+	<!-- 댓글paging -->
+</div>
+<!-- 댓글 끝 -->
+<script>
+	let bno = "${board.boardNo }"; // 원본글번호
+	let logId = "${logId }"; // 작성자
+</script>
+<script src="js/board.js"></script>
 
 <jsp:include page="../includes/footer.jsp"></jsp:include>
