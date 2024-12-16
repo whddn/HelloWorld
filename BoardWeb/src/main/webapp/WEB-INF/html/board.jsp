@@ -10,8 +10,8 @@
 <form action="modifyForm.do">
 	<input type="hidden" name="board_no" value="${board.boardNo }">
 	<input type="hidden" name="searchCondition" value="${searchCondition }">
-	<input type="hidden" name="keyword" value="${keyword }"> <input
-		type="hidden" name="page" value="${page }">
+	<input type="hidden" name="keyword" value="${keyword }"> 
+	<input type="hidden" name="page" value="${page }">
 	<table class="table">
 		<tr>
 			<th>글번호</th>
@@ -72,15 +72,31 @@ div.reply .content span {
 	<div class="content">
 		<ul>
 			<li><span class="col-sm-2">글번호</span> <span class="col-sm-5">내용</span>
-				<span class="col-sm-2">작성자</span> <span class="col-sm-2">삭제</span>
-			</li>
+				<span class="col-sm-2">작성자</span> <span class="col-sm-2">삭제</span></li>
 		</ul>
 		<ul class="list">
-		
+
 		</ul>
 	</div>
 	<!-- 댓글목록 -->
-	<div class="footer"></div>
+	<div class="footer">
+	
+		<nav aria-label="Page navigation example">
+			<ul class="pagination">
+				<li class="page-item">
+				<a class="page-link" href="#" aria-label="Previous">
+				  <span aria-hidden="true">&laquo;</span>
+				</a></li>
+				<li class="page-item"><a class="page-link" href="#">1</a></li>
+				<li class="page-item"><a class="page-link" href="#">2</a></li>
+				<li class="page-item"><a class="page-link" href="#">3</a></li>
+				<li class="page-item"><a class="page-link" href="#" aria-label="Next"> 
+				  <span aria-hidden="true">&raquo;</span>
+				</a></li>
+			</ul>
+		</nav>
+		
+	</div>
 	<!-- 댓글paging -->
 </div>
 <!-- 댓글 끝 -->
