@@ -15,7 +15,7 @@
   <!-- .do -> FrontControl을 실행등록 : url, 실행서블릿 관리. -->
   <servlet>
   	<servlet-name>front</servlet-name>
-  	<servlet-class>com.yedam.FrontControl</servlet-class>
+  	<servlet-class>com.fashion.FrontControl</servlet-class>
   </servlet>
   <servlet-mapping>
   	<servlet-name>front</servlet-name>
